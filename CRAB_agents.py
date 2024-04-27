@@ -32,8 +32,8 @@ from mesa import Agent
 
 
 # -- FIRM INITIALIZATION VALUES -- #
-PROD_DIST = (1, 0.02)  # Normal distribution (mean, std) of initial productivity
-WAGE_DIST = (1, 0.02)  # Normal distribution (mean, std) of initial wages
+PROD_DIST = (1, 0.0001)  # Normal distribution (mean, std) of initial productivity
+WAGE_DIST = (1, 0.0001)  # Normal distribution (mean, std) of initial wages
 
 # -- FIRM CONSTANTS -- #
 INTEREST_RATE = 0.01

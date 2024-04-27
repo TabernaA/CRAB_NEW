@@ -32,25 +32,25 @@ N_REGIONS = 1                                      # Number of regions
 REGIONS = range(N_REGIONS)
 N_HOUSEHOLDS = {REGIONS[0]: 10000}                 # Number of households per region
 N_FIRMS = {REGIONS[0]: {CapitalFirm: 125,          # Number of firms per type per region
-                        ConsumptionGoodFirm: 200,
+                        ConsumptionGoodFirm: 300,
                         ServiceFirm: 300}}
-N_NEW_FIRMS = {REGIONS[0]: {CapitalFirm: 2,        # Avg number of new firms per timestep
+N_NEW_FIRMS = {REGIONS[0]: {CapitalFirm: 1,        # Avg number of new firms per timestep
                             ConsumptionGoodFirm: 1,     
                             ServiceFirm: 1}}
 
 # -- FIRM INITIALIZATION ATTRIBUTES -- #
-INIT_NET_WORTH = {CapitalFirm: 50,          # Initial net worth
-                  ConsumptionGoodFirm: 20,  
+INIT_NET_WORTH = {CapitalFirm: 50,         # Initial net worth
+                  ConsumptionGoodFirm: 50,  
                   ServiceFirm: 50}
 INIT_CAP_AMOUNT = {CapitalFirm: 3,          # Initial capital per machine
                    ConsumptionGoodFirm: 2,
                    ServiceFirm: 2}
 INIT_N_MACHINES = {CapitalFirm: 20,         # Initial number of machines
-                   ConsumptionGoodFirm: 10,
+                   ConsumptionGoodFirm: 15,
                    ServiceFirm: 15}
-CAP_OUT_RATIO = {CapitalFirm: 1,            # Capital output ratio per firm type
-                 ConsumptionGoodFirm: 1.5,
-                 ServiceFirm: 2}
+CAP_OUT_RATIO = {CapitalFirm: 0.05,            # Capital output ratio per firm type
+                 ConsumptionGoodFirm: 1,
+                 ServiceFirm: 1}
 
 # -- ADAPTATION ATTRIBUTES -- #
 AVG_HH_CONNECTIONS = 7
@@ -230,6 +230,13 @@ class CRAB_Model(Model):
         if firm_type == CapitalFirm:
             # Initialize (sold) machines prod as current regional best
             machine_prod = gov.top_prod
+            # draw a change in prouctivity from a beta distribution
+            bounds = [-0.1, 0.05]
+            prod_change = (1 + bounds[0] +
+                           self.RNGs["Firms_RD"].beta(2, 4)
+                           * (bounds[1] - bounds[0]))
+           
+            machine_prod *= prod_change
             market_share = 1/N_FIRMS[region][firm_type]
             # Create new firm
             sub = firm_type(model=self, region=region, flood_depths=flood_depths,

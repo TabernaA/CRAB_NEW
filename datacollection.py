@@ -90,6 +90,8 @@ agent_vars = {# -- ALL AGENTS ATTRIBUTES -- #
 			  		lambda a: getattr(a, "market_share", None)[0]
 			  				  if getattr(a, "market_share", None) is not None
 			  				  else None,
+			  "Feasible_prod":
+			  		lambda a: getattr(a, "feasible_production", None),
 			  "Production made":
 			  		lambda a: getattr(a, "production_made", None),
 			  "Prod":

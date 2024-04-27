@@ -27,7 +27,7 @@ from CRAB_agents import *
 TRANSPORT_COST = 0.03
 TRANSPORT_COST_RoW = 2 * TRANSPORT_COST
 DEMAND_ROW = 0              # NOTE: TESTING! Export turned off
-FRAC_CONS_IN_GOODS = 0.3
+FRAC_CONS_IN_GOODS = 0.35
 FRAC_EXP = 0                # Multiplication factor for export each timestep
 FRAC_EXP_INIT = 0           # Fraction of regional consumption for initial export d
 
@@ -320,8 +320,11 @@ class Government(Agent):
         self.top_wage = max(firm.wage for firm in
                             self.model.get_cons_firms(self.region))
         # Get top productivity (of CapitalGood firms in previous timestep)
-        self.top_prod = max(firm.machine_prod for firm in
-                            self.model.get_firms_by_type(CapitalFirm, self.region))
+        cap_firms =  self.model.get_firms_by_type(CapitalFirm, self.region)
+        # sample 20 percent of cap_firms
+        cap_firms = self.model.RNGs[type(self)].choice(cap_firms, len(cap_firms)//5)
+        self.top_prod = max(firm.machine_prod for firm in cap_firms
+                           )
 
         # Get total capital and capital for firm subsidiaries per sector
         for firm_type in [CapitalFirm, ConsumptionGoodFirm, ServiceFirm]:
