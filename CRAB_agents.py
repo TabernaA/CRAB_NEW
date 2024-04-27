@@ -1254,7 +1254,7 @@ class ConsumptionFirm(Firm):
                                       self.market_share_history[-2]) /
                                       self.market_share_history[-2])), 5)))
         else:
-            self.markup = 0.3
+            self.markup = 0.35
 
         # Adjust price based on new cost and markup, bounded between
         # 0.7 and 1.3 times the old price to avoid large oscillations

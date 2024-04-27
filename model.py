@@ -46,9 +46,9 @@ INIT_CAP_AMOUNT = {CapitalFirm: 3,          # Initial capital per machine
                    ConsumptionGoodFirm: 2,
                    ServiceFirm: 2}
 INIT_N_MACHINES = {CapitalFirm: 20,         # Initial number of machines
-                   ConsumptionGoodFirm: 15,
+                   ConsumptionGoodFirm: 20,
                    ServiceFirm: 15}
-CAP_OUT_RATIO = {CapitalFirm: 0.05,            # Capital output ratio per firm type
+CAP_OUT_RATIO = {CapitalFirm:  0.4,            # Capital output ratio per firm type
                  ConsumptionGoodFirm: 1,
                  ServiceFirm: 1}
 
